@@ -1,0 +1,372 @@
+{
+    "info": {
+        "name": "Case Management Service API",
+        "description": "This collection represents the Case Management Service API as defined by the provided OpenAPI specification.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create a new case",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": {
+                        "case_number": "CASE12345",
+                        "status": "Open",
+                        "assignment_date": "2023-04-01T09:00:00Z",
+                        "summary": "Alleged fraud in accounting department.",
+                        "details": "Detailed description of the alleged fraud case.",
+                        "priority": "High"
+                    },
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "https://api.casemanagement.com/v1/cases",
+                    "protocol": "https",
+                    "host": [
+                        "api",
+                        "casemanagement",
+                        "com"
+                    ],
+                    "path": [
+                        "v1",
+                        "cases"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test('Status code is 201', function () {",
+                            "    pm.response.to.have.status(201);",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Update a case entirely",
+            "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": {
+                        "case_number": "CASE12345",
+                        "status": "InProgress",
+                        "assignment_date": "2023-04-01T09:00:00Z",
+                        "resolution_date": "2023-04-10T17:00:00Z",
+                        "summary": "Updated summary of the case.",
+                        "details": "Updated detailed description of the case.",
+                        "priority": "Medium"
+                    },
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "https://api.casemanagement.com/v1/cases/123e4567-e89b-12d3-a456-426614174000",
+                    "protocol": "https",
+                    "host": [
+                        "api",
+                        "casemanagement",
+                        "com"
+                    ],
+                    "path": [
+                        "v1",
+                        "cases",
+                        "123e4567-e89b-12d3-a456-426614174000"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test('Status code is 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Partially update a case",
+            "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": {
+                        "status": "Closed",
+                        "resolution_date": "2023-04-10T17:00:00Z",
+                        "priority": "Low"
+                    },
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "https://api.casemanagement.com/v1/cases/123e4567-e89b-12d3-a456-426614174000",
+                    "protocol": "https",
+                    "host": [
+                        "api",
+                        "casemanagement",
+                        "com"
+                    ],
+                    "path": [
+                        "v1",
+                        "cases",
+                        "123e4567-e89b-12d3-a456-426614174000"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test('Status code is 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Delete a case",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "https://api.casemanagement.com/v1/cases/123e4567-e89b-12d3-a456-426614174000",
+                    "protocol": "https",
+                    "host": [
+                        "api",
+                        "casemanagement",
+                        "com"
+                    ],
+                    "path": [
+                        "v1",
+                        "cases",
+                        "123e4567-e89b-12d3-a456-426614174000"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test('Status code is 204', function () {",
+                            "    pm.response.to.have.status(204);",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Create a new investigator",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": {
+                        "name": "John Doe",
+                        "email": "john.doe@example.com",
+                        "active_cases": 3
+                    },
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "https://api.casemanagement.com/v1/investigators",
+                    "protocol": "https",
+                    "host": [
+                        "api",
+                        "casemanagement",
+                        "com"
+                    ],
+                    "path": [
+                        "v1",
+                        "investigators"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test('Status code is 201', function () {",
+                            "    pm.response.to.have.status(201);",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Update an investigator entirely",
+            "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": {
+                        "name": "Jane Smith",
+                        "email": "jane.smith@example.com",
+                        "active_cases": 5
+                    },
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "https://api.casemanagement.com/v1/investigators/987e6543-e21c-12d3-a456-426614174000",
+                    "protocol": "https",
+                    "host": [
+                        "api",
+                        "casemanagement",
+                        "com"
+                    ],
+                    "path": [
+                        "v1",
+                        "investigators",
+                        "987e6543-e21c-12d3-a456-426614174000"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test('Status code is 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Partially update an investigator",
+            "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": {
+                        "email": "jane.newemail@example.com",
+                        "active_cases": 4
+                    },
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "https://api.casemanagement.com/v1/investigators/987e6543-e21c-12d3-a456-426614174000",
+                    "protocol": "https",
+                    "host": [
+                        "api",
+                        "casemanagement",
+                        "com"
+                    ],
+                    "path": [
+                        "v1",
+                        "investigators",
+                        "987e6543-e21c-12d3-a456-426614174000"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test('Status code is 200', function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Delete an investigator",
+            "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                    "raw": "https://api.casemanagement.com/v1/investigators/987e6543-e21c-12d3-a456-426614174000",
+                    "protocol": "https",
+                    "host": [
+                        "api",
+                        "casemanagement",
+                        "com"
+                    ],
+                    "path": [
+                        "v1",
+                        "investigators",
+                        "987e6543-e21c-12d3-a456-426614174000"
+                    ]
+                }
+            },
+            "response": [],
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "pm.test('Status code is 204', function () {",
+                            "    pm.response.to.have.status(204);",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ]
+        }
+    ],
+    "protocolProfileBehavior": {}
+}

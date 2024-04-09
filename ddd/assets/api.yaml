@@ -1,0 +1,342 @@
+openapi: 3.0.3
+info:
+  title: Case Management Service API
+  description: API for managing cases and investigators within a case management system.
+  version: 1.0.0
+servers:
+  - url: 'https://api.casemanagement.com/v1'
+tags:
+  - name: Case
+    description: Operations related to cases in the case management system.
+  - name: Investigator
+    description: Operations related to investigators in the case management system.
+paths:
+  /cases:
+    post:
+      tags:
+        - Case
+      summary: Create a new case
+      description: This operation creates a new case with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Case'
+            example:
+              case_number: 'CASE12345'
+              status: 'Open'
+              assignment_date: '2023-04-01T09:00:00Z'
+              summary: 'Alleged fraud in accounting department.'
+              details: 'The case involves multiple suspicious transactions.'
+              investigator_id: 'INV-001'
+      responses:
+        '201':
+          description: Case created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+  /cases/{case_id}:
+    get:
+      tags:
+        - Case
+      summary: Retrieve a case by ID
+      description: This operation retrieves a case by its unique identifier.
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          description: Unique identifier of the case to retrieve.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Case retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+              example:
+                case_id: 'CASE-001'
+                case_number: 'CASE12345'
+                status: 'Open'
+                assignment_date: '2023-04-01T09:00:00Z'
+                resolution_date: null
+                summary: 'Alleged fraud in accounting department.'
+                details: 'The case involves multiple suspicious transactions.'
+                investigator_id: 'INV-001'
+    put:
+      tags:
+        - Case
+      summary: Update a case entirely by ID
+      description: This operation updates an existing case by its unique identifier with new data.
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          description: Unique identifier of the case to update.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Case'
+            example:
+              case_number: 'CASE12345'
+              status: 'InProgress'
+              assignment_date: '2023-04-01T09:00:00Z'
+              resolution_date: null
+              summary: 'Updated summary of the case.'
+              details: 'Additional details about the case.'
+              investigator_id: 'INV-002'
+      responses:
+        '200':
+          description: Case updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+    delete:
+      tags:
+        - Case
+      summary: Delete a case by ID
+      description: This operation deletes a case by its unique identifier.
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          description: Unique identifier of the case to delete.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Case deleted successfully.
+    patch:
+      tags:
+        - Case
+      summary: Partially update a case by ID
+      description: This operation partially updates a case by its unique identifier with new data.
+      parameters:
+        - name: case_id
+          in: path
+          required: true
+          description: Unique identifier of the case to partially update.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                resolution_date:
+                  type: string
+                  format: date-time
+            example:
+              status: 'Closed'
+              resolution_date: '2023-04-10T17:00:00Z'
+      responses:
+        '200':
+          description: Case partially updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Case'
+  /investigators:
+    post:
+      tags:
+        - Investigator
+      summary: Create a new investigator
+      description: This operation creates a new investigator with the provided details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Investigator'
+            example:
+              name: 'John Doe'
+              email: 'john.doe@example.com'
+              phone: '+1234567890'
+      responses:
+        '201':
+          description: Investigator created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Investigator'
+  /investigators/{investigator_id}:
+    get:
+      tags:
+        - Investigator
+      summary: Retrieve an investigator by ID
+      description: This operation retrieves an investigator by their unique identifier.
+      parameters:
+        - name: investigator_id
+          in: path
+          required: true
+          description: Unique identifier of the investigator to retrieve.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Investigator retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Investigator'
+              example:
+                investigator_id: 'INV-001'
+                name: 'John Doe'
+                email: 'john.doe@example.com'
+                phone: '+1234567890'
+                assigned_cases: ['CASE-001', 'CASE-002']
+    put:
+      tags:
+        - Investigator
+      summary: Update an investigator entirely by ID
+      description: This operation updates an existing investigator by their unique identifier with new data.
+      parameters:
+        - name: investigator_id
+          in: path
+          required: true
+          description: Unique identifier of the investigator to update.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Investigator'
+            example:
+              name: 'Jane Smith'
+              email: 'jane.smith@example.com'
+              phone: '+1987654321'
+      responses:
+        '200':
+          description: Investigator updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Investigator'
+    delete:
+      tags:
+        - Investigator
+      summary: Delete an investigator by ID
+      description: This operation deletes an investigator by their unique identifier.
+      parameters:
+        - name: investigator_id
+          in: path
+          required: true
+          description: Unique identifier of the investigator to delete.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Investigator deleted successfully.
+    patch:
+      tags:
+        - Investigator
+      summary: Partially update an investigator by ID
+      description: This operation partially updates an investigator by their unique identifier with new data.
+      parameters:
+        - name: investigator_id
+          in: path
+          required: true
+          description: Unique identifier of the investigator to partially update.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                phone:
+                  type: string
+            example:
+              email: 'new.email@example.com'
+              phone: '+11234567890'
+      responses:
+        '200':
+          description: Investigator partially updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Investigator'
+components:
+  schemas:
+    Case:
+      type: object
+      required:
+        - case_number
+        - status
+        - assignment_date
+        - summary
+        - details
+        - investigator_id
+      properties:
+        case_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the case.
+        case_number:
+          type: string
+          description: Unique case number.
+        status:
+          type: string
+          description: Current status of the case.
+        assignment_date:
+          type: string
+          format: date-time
+          description: Date and time when the case was assigned.
+        resolution_date:
+          type: string
+          format: date-time
+          description: Date and time when the case was resolved.
+        summary:
+          type: string
+          description: Brief summary of the case.
+        details:
+          type: string
+          description: Detailed description of the case.
+        investigator_id:
+          type: string
+          description: Identifier of the investigator assigned to the case.
+    Investigator:
+      type: object
+      required:
+        - name
+        - email
+        - phone
+      properties:
+        investigator_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the investigator.
+        name:
+          type: string
+          description: Full name of the investigator.
+        email:
+          type: string
+          format: email
+          description: Email address of the investigator.
+        phone:
+          type: string
+          description: Phone number of the investigator.
+        assigned_cases:
+          type: array
+          items:
+            type: string
+          description: List of case identifiers assigned to the investigator.
